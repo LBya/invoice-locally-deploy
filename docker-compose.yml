@@ -1,0 +1,11 @@
+services:
+  invoicelocally:
+    image: ghcr.io/LBya/invoicer:latest
+    container_name: invoiceLocally
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./invoicer:/app/data
+    environment:
+      - INVOICE_LICENSE_KEY=${LICENSE_KEY}
+    restart: unless-stopped
