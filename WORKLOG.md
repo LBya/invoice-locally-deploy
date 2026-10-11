@@ -123,3 +123,7 @@ mandate) — it unlocks for a LATER block after sign-off.
   per same-day rules it is eligible for at most one continue later today.
 - Compliance: no push/publish; no state-changing docker commands; no data/volume contents
   read; queue.md untouched; secret values never quoted in this file.
+
+---
+
+Block closed 10:07 AEDT. Drafts committed as `a90565c` (WORKLOG + docs/, all DRAFT-marked); readme fix is `1897679`. Both local-only — no push (origin remote still embeds a credential; see sign-off queue item 1). Handoff above is final: rungs reached 2→4→5, stop rule respected, nothing from the drafts is implementable this block.
