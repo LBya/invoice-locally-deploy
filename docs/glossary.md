@@ -1,6 +1,6 @@
 # Glossary — invoice-locally-deploy
 
-**DRAFT — needs human sign-off; no force until signed.** 2026-10-11. Drafted from
+**RATIFIED 2026-10-12 — owner, fatten grill session (docs/fatten/invoice-locally-deploy-research.md).** 2026-10-11. Drafted from
 code-review evidence (WORKLOG.md, 2026-10-11 entry).
 
 | Term | Meaning in this project |

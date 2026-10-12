@@ -1,6 +1,6 @@
 # Purpose & Intent — invoice-locally-deploy
 
-**DRAFT — needs human sign-off; no force until signed.**
+**RATIFIED 2026-10-12 — owner, fatten grill session (docs/fatten/invoice-locally-deploy-research.md).**
 Drafted 2026-10-11 from code-review evidence (see WORKLOG.md, 2026-10-11 entry).
 Nothing in this document is implementable in the block that drafted it.
 

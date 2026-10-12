@@ -127,3 +127,22 @@ mandate) — it unlocks for a LATER block after sign-off.
 ---
 
 Block closed 10:07 AEDT. Drafts committed as `a90565c` (WORKLOG + docs/, all DRAFT-marked); readme fix is `1897679`. Both local-only — no push (origin remote still embeds a credential; see sign-off queue item 1). Handoff above is final: rungs reached 2→4→5, stop rule respected, nothing from the drafts is implementable this block.
+
+## 2026-10-12 — user ruling session (fatten grill; context: vacay-idle docs/fatten/invoice-locally-deploy-research.md)
+
+- DOCS RATIFIED (all 5: purpose, ADR-0001..0003, glossary) — banners flipped from
+  DRAFT to RATIFIED 2026-10-12. Rung-3 enhancement brainstorm is unlocked for a
+  later block.
+- SIGN-OFF ITEMS CLEARED for the away window: #2 enable the invoicer repo's
+  commercial-build workflow (or document the manual push) so the GHCR image path
+  is reproducible — closes ADR-0001's embedded gap; #3 pin a versioned tag
+  (keep latest only if pull-to-update stays the flow — implementer picks the
+  pinned default and documents it); #4 bind the compose port to 127.0.0.1:8000;
+  #5 fix the Linux first-run bind-mount hazard via a readme pre-create + chown
+  step (default; named volume only if the readme step proves insufficient);
+  #6 docker-compose v1 → docker compose plugin wording; #7 .gitignore for .env
+  + .env.example.
+- Item #8 (rename ./invoicer data dir) ruled KEEP. Item #1 (PAT rotation + remote
+  re-point) stays user-side per register §C.
+
+Next: work items 2-7 in order (2 needs the invoicer repo; 3-7 are wrapper-local); then rung 3 is available. (latest: WORKLOG 2026-10-12)

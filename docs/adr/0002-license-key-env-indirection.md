@@ -1,6 +1,6 @@
 # ADR-0002: License key reaches the container via env indirection from an uncommitted .env file
 
-**DRAFT — needs human sign-off; no force until signed.** 2026-10-11. Evidence source:
+**RATIFIED 2026-10-12 — owner, fatten grill session (docs/fatten/invoice-locally-deploy-research.md).** 2026-10-11. Evidence source:
 WORKLOG.md 2026-10-11 entry, fixed defect #1; `docker-compose.yml` line 10; invoicer
 `license_service.py` (`os.getenv("INVOICE_LICENSE_KEY")`), read-only cross-reference.
 

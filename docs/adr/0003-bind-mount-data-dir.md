@@ -1,6 +1,6 @@
 # ADR-0003: Customer data persists via host bind mount `./invoicer` → `/app/data`
 
-**DRAFT — needs human sign-off; no force until signed.** 2026-10-11. Evidence source:
+**RATIFIED 2026-10-12 — owner, fatten grill session (docs/fatten/invoice-locally-deploy-research.md).** 2026-10-11. Evidence source:
 WORKLOG.md 2026-10-11 entry; `docker-compose.yml` line 8; invoicer `Dockerfile.release`
 (55–66) and `license_service.py` (20–21), read-only cross-reference.
 

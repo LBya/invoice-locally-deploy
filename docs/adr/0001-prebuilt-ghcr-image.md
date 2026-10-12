@@ -1,6 +1,6 @@
 # ADR-0001: Distribute the invoicer as a prebuilt GHCR image, not build-from-source
 
-**DRAFT — needs human sign-off; no force until signed.** 2026-10-11. Evidence source:
+**RATIFIED 2026-10-12 — owner, fatten grill session (docs/fatten/invoice-locally-deploy-research.md).** 2026-10-11. Evidence source:
 WORKLOG.md 2026-10-11 entry; `docker-compose.yml` line 3; invoicer repo
 `.github/workflows/` (read-only cross-reference).
 
