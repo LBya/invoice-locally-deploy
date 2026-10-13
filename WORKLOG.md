@@ -146,3 +146,82 @@ Block closed 10:07 AEDT. Drafts committed as `a90565c` (WORKLOG + docs/, all DRA
   re-point) stays user-side per register §C.
 
 Next: work items 2-7 in order (2 needs the invoicer repo; 3-7 are wrapper-local); then rung 3 is available. (latest: WORKLOG 2026-10-12)
+## 2026-10-13 — sign-off items 2-7 implemented and committed (rung 1 complete; rung-2 re-review follows in the next entry)
+
+Block: queue row 18, away window (~12:28–15:00 AEDT). Register §F (2026-10-12, commit
+`c268f89`) cleared items 2-7; #1 (PAT) user-side untouched; #8 KEEP honored — `./invoicer`
+data dir NOT renamed. Rung reached: **1** (signed-off items), continuing down the ladder.
+
+### Item-by-item (commit; evidence)
+
+- **#4 loopback port** — `40cb555`. compose `ports: ["127.0.0.1:8000:8000"]`;
+  `docker compose config` (read-only) renders `host_ip: 127.0.0.1, published: "8000"`.
+- **#5 Linux first-run hazard** — `63d4fc9`. New readme step 4, explicitly "Linux users
+  only — skip on Windows/macOS": `mkdir -p ./invoicer` + `sudo chown -R 1000:1000
+  ./invoicer`. UID 1000 justified statically: `useradd --create-home appuser`
+  (Dockerfile.release:62) takes the first free UID in `python:3.11-slim` (base has no
+  UID-1000 user); entrypoint runs as `appuser` (USER precedes ENTRYPOINT) and only
+  `mkdir -p /app/data` — it cannot chown a root-owned bind source, so the pre-create
+  step is the fix. Ruled default (readme step) adopted; named volume NOT needed —
+  no insufficiency found, so nothing further to document per the ruling.
+- **#6 compose v1 → plugin wording** — `a86414e`. All 6 command-form occurrences
+  (`docker-compose up|pull`) across readme.md, purpose.md, glossary.md, ADR-0001
+  became `docker compose …`; the file name `docker-compose.yml` untouched (it is the
+  artifact, not a command). Post-edit grep: zero residual command forms.
+- **#7 .gitignore + .env.example** — `c81aebb`. `.gitignore` ignores `.env`;
+  `.env.example` is a placeholder-only template matching the readme's exact
+  `LICENSE_KEY=your-actual-key-here` wording. Red/green: created a live `.env` —
+  `git check-ignore .env` matched and `git status` stayed clean; `.env.example` NOT
+  ignored (trackable); the test `.env` deleted immediately after (value was a
+  REDACTED-TEST-VALUE dummy, never a real key).
+- **#3 version pin (implementer choice per ruling)** — `e795e40`. compose now
+  `image: ghcr.io/LBya/invoicer:v1` — a **moving major tag**: `docker compose pull`
+  keeps delivering v1.x updates (pull-to-update survives within the major), while a
+  v2 release can never land uninvited; the readme "Updates" section documents the
+  pin, the update commands, and the deliberate one-step re-download on major bumps.
+  `latest` is kept only upstream (workflow still publishes it); the wrapper no longer
+  tracks it. Decision recorded in new **`docs/adr/0004-image-tag-pinning.md`**
+  (ADR-0001 explicitly anticipated "a separate ADR once decided"); glossary and
+  purpose rows synced (`f4358a3`). Chosen over a frozen `1.0.0` pin: frozen would
+  kill pull-to-update and require a wrapper commit per patch — against the two-file
+  customer story. Compose re-validated after every edit (`config` parse OK each time;
+  readme fence count stays even at 8).
+- **#2 GHCR publication path (sister repo `../invoicer`)** — commits `5ea270a` +
+  `48b6026` THERE (this repo only cross-references). `build-commercial.yml.example`
+  → live `build-commercial.yml` (trigger: `v*.*.*` tag push or manual dispatch;
+  builds `Dockerfile.release`; publishes `ghcr.io/LBya/invoicer` with full semver,
+  `major.minor`, **`v<major>`** — serving this wrapper's `v1` pin — and `latest`).
+  Three provable defects fixed while enabling: attestation step read
+  `steps.push.outputs.digest` but the build step had no `id` (added `id: push`);
+  dispatch input `tag` was declared but never consumed (removed); `WHOP_API_KEY`
+  build-arg was dead — `Dockerfile.release` declares **no ARGs** (grep: 0) and the
+  security model is zero image secrets (COMMERCIAL_BUILD.md). COMMERCIAL_BUILD.md
+  gained a Publishing section (CI primary + manual-push fallback with the real
+  `ghcr.io/LBya/invoicer` path, replacing the wrong `yourname/local-invoicer`
+  example). Workflow YAML validated (pyyaml parse; actionlint unavailable). **Not
+  dispatched, not pushed.** ADR-0001's publication-path gap is therefore closed at
+  the file level; it becomes physically real when the owner pushes a `v1.*.*` tag.
+
+### Compliance
+
+No push anywhere (wrapper main ahead 10, invoicer main ahead 31 — all local). Remotes
+untouched; observed the wrapper origin now shows an SSH URL (`git@github.com/…`),
+i.e. apparently re-pointed since 2026-10-11 — no credential action taken or needed
+from me; item #1 rotation/re-point remains the user's. No state-changing docker
+(only `docker compose config` + `docker --version`); no container/image touched
+(none deployed per 2026-10-11 review; none started now). No credential values
+quoted anywhere. vacay-idle/queue.md untouched. Invoicer's untracked
+`docs/prd/IMPLEMENTATION_PLAN.md` left alone. Runge-3 brainstorm NOT run (fenced to
+a later block by the ruling).
+
+### Handoff (done / blocked / next)
+
+- **DONE:** items 2-7 implemented, verified, committed per-item in the correct repo
+  (wrapper: `40cb555`, `63d4fc9`, `a86414e`, `c81aebb`, `e795e40`, `f4358a3`;
+  invoicer: `5ea270a`, `48b6026`); this entry appended well before the 14:50 cutoff.
+- **BLOCKED (user-side only):** (a) push both repos (§C); (b) tag `v1.0.0` and push
+  it in invoicer to publish the first `v1`/semver/`latest` images, then set the GHCR
+  package public so customers can pull unauthenticated; (c) PAT item #1 if any
+  residue remains after the SSH re-point.
+- **NEXT:** rung-2 re-review of the changed surface in this block (next entry);
+  for a later block: the rung-3 enhancement brainstorm (unlocked 2026-10-12).
