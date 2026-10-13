@@ -14,8 +14,10 @@ machine: download `docker-compose.yml`, paste their license key into a `.env` fi
 ## What this project IS
 
 - A **deployment wrapper** only. It contains no application code. The application is the
-  separate `invoicer` project, consumed as the prebuilt image `ghcr.io/LBya/invoicer`
-  at the pinned major tag `v1` (ADR-0004).
+  separate `invoicer` project, consumed as the prebuilt image `ghcr.io/lbya/invoicer`
+  at the pinned major tag `v1` (ADR-0004). (Image paths must be lowercase — Docker
+  rejects mixed case at reference-parse time; GHCR normalizes package names to
+  lowercase.)
 - The **customer-facing install surface** of the commercial edition: its readme is the
   entire setup documentation a customer sees.
 - A **data-location contract**: it binds `./invoicer` (host) to `/app/data` (container),

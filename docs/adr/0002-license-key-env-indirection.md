@@ -36,3 +36,10 @@ live secret.
 - Unrelated but discovered during this review (review item 1): the repo's git remote
   URL embeds a GitHub PAT in `.git/config` — rotate and re-point; that token is a
   repo-access credential, not part of this ADR's mechanism.
+
+---
+
+**Resolution (2026-10-13, appended):** the ADR-0002 follow-up above (item 7 —
+`.gitignore` with `.env` + a `.env.example`) was signed off 2026-10-12 and implemented
+in commit `c81aebb`. The remote has since been re-pointed to SSH (observed
+2026-10-13); token rotation itself remains the owner's item.

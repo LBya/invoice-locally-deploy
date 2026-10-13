@@ -8,20 +8,28 @@ version tags are used").
 
 ## Context
 
-ADR-0001 distributes the app as the prebuilt image `ghcr.io/LBya/invoicer`. Until
-now the wrapper referenced the floating `:latest` tag, so any upstream build —
-including a breaking one — would be pulled onto every customer's machine by the
-documented update flow (`docker compose pull` + `docker compose up -d`). The
-readme's "Updates" section is the customer's only update path; a non-technical
-customer cannot roll back or diagnose a broken pull.
+ADR-0001 distributes the app as the prebuilt image `ghcr.io/lbya/invoicer` (lowercase;
+see Decision note 3 below — earlier documents spelled the path `LBya`, which Docker
+rejects at reference-parse time). Until now the wrapper referenced the floating
+`:latest` tag, so any upstream build — including a breaking one — would be pulled onto
+every customer's machine by the documented update flow (`docker compose pull` +
+`docker compose up -d`). The readme's "Updates" section is the customer's only update
+path; a non-technical customer cannot roll back or diagnose a broken pull.
 
 ## Decision
 
-- `docker-compose.yml` tracks `ghcr.io/LBya/invoicer:v1` — a **moving major tag**.
+- `docker-compose.yml` tracks `ghcr.io/lbya/invoicer:v1` — a **moving major tag**.
 - The invoicer release workflow (its `build-commercial.yml`, enabled the same day)
   publishes every release under its full semver tags, its `v<major>` tag, and
   `latest`; a v1.x release re-cuts `v1`, so `docker compose pull` keeps delivering
   updates **within major version 1** without any change to this wrapper.
+- **Lowercase path (recorded 2026-10-13, rung-2 review):** the image path must be
+  lowercase. Proof: `docker image inspect ghcr.io/LBya/invoicer:v1` (read-only parse
+  check) → `invalid reference format: repository name (LBya/invoicer) must be
+  lowercase`, while the lowercase form parses; GHCR normalizes package names to
+  lowercase, so this is the only pullable spelling. Earlier ratified docs (ADR-0001,
+  the 2026-10-11 review) spelled it `LBya` — those records keep their historical
+  spelling; every living artifact (compose, readme, purpose, glossary) uses lowercase.
 - `latest` remains published upstream for the owner's convenience but the wrapper
   deliberately does not track it. Pull-to-update therefore stays the customer flow
   (as the ruling contemplated), but only for compatible (same-major) releases.

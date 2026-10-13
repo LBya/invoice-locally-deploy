@@ -26,7 +26,7 @@ Professional invoicing for musicians and freelancers.
 6.  **Open** http://localhost:8000
 
 ## Updates
-The compose file tracks major version **v1** of the app (`ghcr.io/LBya/invoicer:v1`).
+The compose file tracks major version **v1** of the app (`ghcr.io/lbya/invoicer:v1`).
 To update to the newest build of v1, run:
 ```bash
 docker compose pull

@@ -1,6 +1,6 @@
 services:
   invoicelocally:
-    image: ghcr.io/LBya/invoicer:v1
+    image: ghcr.io/lbya/invoicer:v1
     container_name: invoiceLocally
     ports:
       - "127.0.0.1:8000:8000"

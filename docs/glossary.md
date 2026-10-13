@@ -5,9 +5,9 @@ code-review evidence (WORKLOG.md, 2026-10-11 entry).
 
 | Term | Meaning in this project |
 |---|---|
-| **Wrapper** | This repository: the two tracked files (`docker-compose.yml`, `readme.md`) that deploy the app. Contains no application code. |
+| **Wrapper** | This repository: the deployment artifacts (`docker-compose.yml`, `readme.md`, `.env.example`, `.gitignore`) plus the ratified docs. Contains no application code. |
 | **The app / invoicer** | The separate `invoicer` repository — the commercial invoicing application (FastAPI backend + SvelteKit frontend) consumed as a prebuilt image. Read-only reference for wrapper blocks. |
-| **Release image** | The monolithic container image built from the invoicer repo's `Dockerfile.release` (frontend + backend in one container), published as `ghcr.io/LBya/invoicer`; the wrapper tracks its pinned `v1` major tag (ADR-0004). |
+| **Release image** | The monolithic container image built from the invoicer repo's `Dockerfile.release` (frontend + backend in one container), published as `ghcr.io/lbya/invoicer` (lowercase — Docker reference grammar rejects uppercase paths); the wrapper tracks its pinned `v1` major tag (ADR-0004). |
 | **License key** | The customer's purchased Whop license. Passed as env var `INVOICE_LICENSE_KEY`; without a valid key the app blocks startup. |
 | **`.env` file** | Uncommitted file next to the compose file holding `LICENSE_KEY=…`; compose auto-loads it for `${LICENSE_KEY}` interpolation. Never committed (ADR-0002). |
 | **Data dir** | Host folder `./invoicer` bound to `/app/data` in the container; holds the SQLite database, `license.json`, and `instance_id` (hardware binding). All durable state lives here (ADR-0003). |

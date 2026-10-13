@@ -33,3 +33,13 @@ builds.
   path exists.
 - Open: whether `latest` (pull-to-update) or pinned version tags are used — review
   items 2–3, likely a separate ADR once decided.
+
+---
+
+**Resolution (2026-10-13, appended — original text above is the ratified record):**
+both open points were decided and implemented. The publication path exists at the
+file level: the invoicer repo's `build-commercial.yml` is enabled (invoicer commit
+`5ea270a`), pending the owner's first `v1.*.*` tag push. Tag pinning is decided in
+`docs/adr/0004-image-tag-pinning.md`. Also note the image path is lowercase
+(`ghcr.io/lbya/invoicer`) — the `LBya` spelling in the historical text above is not
+a pullable reference (see ADR-0004, Decision note 3).

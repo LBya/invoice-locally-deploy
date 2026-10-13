@@ -32,3 +32,11 @@ replacement, update, and restart. The container never stores durable state.
   Decision needed before wide distribution.
 - Cosmetic (review item 8): the folder name `./invoicer` matches the app repo's name,
   which may confuse (it holds data, not source). Renaming is cheap now, breaking later.
+
+---
+
+**Resolution (2026-10-13, appended):** the hazard above (review item 5) was ruled on
+2026-10-12: keep the bind mount, fix via a readme pre-create + chown step — readme
+step 4 (`mkdir -p ./invoicer && sudo chown -R 1000:1000 ./invoicer`, Linux-only),
+commit `63d4fc9`. The rename (review item 8) was ruled **KEEP** — the folder stays
+`./invoicer`.
