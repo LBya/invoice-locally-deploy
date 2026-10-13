@@ -14,7 +14,8 @@ machine: download `docker-compose.yml`, paste their license key into a `.env` fi
 ## What this project IS
 
 - A **deployment wrapper** only. It contains no application code. The application is the
-  separate `invoicer` project, consumed as the prebuilt image `ghcr.io/LBya/invoicer:latest`.
+  separate `invoicer` project, consumed as the prebuilt image `ghcr.io/LBya/invoicer`
+  at the pinned major tag `v1` (ADR-0004).
 - The **customer-facing install surface** of the commercial edition: its readme is the
   entire setup documentation a customer sees.
 - A **data-location contract**: it binds `./invoicer` (host) to `/app/data` (container),
@@ -42,7 +43,11 @@ machine: download `docker-compose.yml`, paste their license key into a `.env` fi
 
 ## Open decisions for the human (from the review sign-off queue)
 
-- Bind port to loopback only or all interfaces? (review item 4)
-- Named volume vs host bind mount for `/app/data`? (review item 5 — affects first-run
-  permissions on Linux)
-- Pin image versions vs keep `latest` pull-to-update flow? (review items 2–3)
+All three were decided by the owner's ruling of 2026-10-12 (WORKLOG) and implemented
+2026-10-13:
+
+- Loopback-only binding — **decided: bind 127.0.0.1:8000** (review item 4).
+- Named volume vs host bind mount — **decided: keep the bind mount**, with a readme
+  pre-create + chown step for Linux first-run (review item 5; ADR-0003 stands).
+- Pin image versions vs keep `latest` — **decided: pin the moving major tag `v1`**
+  (review items 2–3; ADR-0004).
