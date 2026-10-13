@@ -225,3 +225,76 @@ a later block by the ruling).
   residue remains after the SSH re-point.
 - **NEXT:** rung-2 re-review of the changed surface in this block (next entry);
   for a later block: the rung-3 enhancement brainstorm (unlocked 2026-10-12).
+## 2026-10-13 (continued) — rung-2 re-review: 1 HIGH defect found, proven, and fixed (lowercase image path); doc-status syncs; block closed
+
+After the rung-1 handoff above, the ladder continued to rung 2 (dedicated review of the
+whole tracked surface, now 11 files). Scope: every tracked file re-verified against the
+invoicer app artifacts (read-only) and against docker's own reference grammar; docker
+used strictly read-only (`compose config`, `image inspect`, `--version`).
+
+### Defect FIXED (test-provable, commit `928d099`)
+
+**HIGH — the image reference used an uppercase path (`ghcr.io/LBya/invoicer`), which
+docker rejects at parse time; every documented `docker compose pull/up` would fail
+instantly.** Proof (red/green, read-only):
+`docker image inspect ghcr.io/LBya/invoicer:v1` → `Error response: invalid reference
+format: repository name (LBya/invoicer) must be lowercase`;
+`docker image inspect ghcr.io/lbya/invoicer:v1` → parses (fails only with the expected
+"No such image" until first publish). Docker's reference grammar allows lowercase only
+in repository path components; GHCR additionally normalizes package names to lowercase,
+so `ghcr.io/lbya/invoicer` is the only pullable spelling. The defect predates today
+(the original compose file used `:LBya:` too — the 2026-10-11 review verified port/
+data-path/env alignment but not reference grammar); today's #3 pin carried it forward.
+Fixed everywhere the name is live: docker-compose.yml, readme "Updates", purpose.md,
+glossary.md, ADR-0004; ADR-0001 and the historical WORKLOG entries keep their
+historical spelling with dated pointers to the correction. Same proof applied to my
+own additions of earlier today in the invoicer repo (manual-push `docker tag/push`
+commands would have failed identically) — fixed there in invoicer commit `ba1b406`,
+with the reason recorded in COMMERCIAL_BUILD.md.
+
+### Staleness syncs (same commit; original ratified text preserved, dated annotations added)
+
+- ADR-0001: resolution note appended — publication path enabled at file level
+  (invoicer `5ea270a`), pinning decided in ADR-0004, lowercase caveat.
+- ADR-0002: resolution note — item-7 follow-up (.gitignore + .env.example) done
+  (`c81aebb`); remote observed re-pointed to SSH; rotation stays the owner's.
+- ADR-0003: resolution note — hazard fixed via readme step 4 (`63d4fc9`); item-8
+  rename ruled KEEP.
+- Glossary "Wrapper" row: "two tracked files" → the real artifact set (git ls-files
+  proves 11 tracked files).
+
+### Rung-2 disposition summary
+
+- Fixed this block: 1 HIGH (lowercase ref, wrapper `928d099` + invoicer `ba1b406`).
+- Agent-added, needs sign-off (proposals only, no action taken):
+  1. LOW — readme step 2 could offer `.env.example` as the starting template
+     ("copy .env.example to .env") instead of creating the file from scratch; the
+     current from-scratch instructions are complete, so this is polish only.
+  2. LOW/cosmetic — service `invoicelocally` vs `container_name: invoiceLocally`
+     casing mismatch (carried from 2026-10-11 review item 8; awareness only).
+- Rung 2 exhausted; rung 3 remains fenced to a later block per the 2026-10-12 ruling
+  (candidate territory when it runs may include wrapper-side CI validating
+  `docker compose config` — noted as a pointer only, no brainstorm run here).
+
+### Final state / handoff (done / blocked / next)
+
+- **DONE:** all six cleared items (2-7) implemented, verified, committed per-item in
+  the correct repos; two WORKLOG entries + this one; rung-2 review complete with the
+  HIGH defect fixed and the rest dispositioned. Wrapper main **ahead 12** (commits
+  `40cb555`, `63d4fc9`, `a86414e`, `c81aebb`, `e795e40`, `f4358a3`, `a7de1d5`,
+  `928d099` + 4 pre-existing), invoicer main **ahead 32** (`5ea270a`, `48b6026`,
+  `ba1b406` + 29 pre-existing). All local; tree clean; every compose/doc edit
+  re-validated after each step (compose `config` parse OK at every check; readme
+  fences even at 8; workflow YAML parses).
+- **BLOCKED (user-side only, unchanged):** push both repos (§C); in invoicer push a
+  `v1.0.0` tag to publish the first images (until then `docker compose pull` 404s on
+  `v1` exactly as it did on the never-published `latest`) and set the GHCR package
+  public; PAT item #1 residue if any.
+- **NEXT (later blocks):** rung-3 enhancement brainstorm (unlocked 2026-10-12, still
+  unrun); sign-off queue = the two LOW proposals above. This project has used no
+  continue yet today and cleanly finished — eligible for at most one continue later
+  today per the same-day rules.
+- Compliance: no push, no remotes touched, no state-changing docker command, no
+  credentials quoted or moved, queue.md untouched, invoicer's untracked
+  IMPLEMENTATION_PLAN.md untouched, invoicer repo otherwise treated as read-only
+  reference except the sanctioned item-#2 files.
