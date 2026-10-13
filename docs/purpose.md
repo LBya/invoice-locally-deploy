@@ -9,7 +9,7 @@ Nothing in this document is implementable in the block that drafted it.
 Give a non-technical customer (a musician or freelancer who bought a license through the
 Whop store) a two-file, one-command way to run the `invoicer` application on their own
 machine: download `docker-compose.yml`, paste their license key into a `.env` file, run
-`docker-compose up -d`, and open http://localhost:8000.
+`docker compose up -d`, and open http://localhost:8000.
 
 ## What this project IS
 

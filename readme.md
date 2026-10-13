@@ -21,13 +21,13 @@ Professional invoicing for musicians and freelancers.
     ```
 5.  **Run** the application:
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 6.  **Open** http://localhost:8000
 
 ## Updates
 To update to the latest version, run:
 ```bash
-docker-compose pull
-docker-compose up -d
+docker compose pull
+docker compose up -d
 ```

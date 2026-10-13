@@ -28,7 +28,7 @@ builds.
 - Gap found in review (needs sign-off, review item 2): no *active* CI publishes that
   image today — the invoicer repo's `cd.yml` has no docker push, and the only workflow
   that would publish it is disabled (`build-commercial.yml.example`). Until that is
-  enabled (or a documented manual push exists), `docker-compose pull` has no
+  enabled (or a documented manual push exists), `docker compose pull` has no
   reproducible source. This ADR cannot be considered satisfied until the publication
   path exists.
 - Open: whether `latest` (pull-to-update) or pinned version tags are used — review

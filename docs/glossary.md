@@ -15,7 +15,7 @@ code-review evidence (WORKLOG.md, 2026-10-11 entry).
 | **License proxy** | Cloudflare Worker (`LICENSE_PROXY_URL` in the app) that validates Whop licenses without embedding secrets in the image. Owned by the invoicer repo, not this one. |
 | **Whop store** | The sales channel; customers buy the license there, then install with this wrapper. Store URL in the readme is a template placeholder. |
 | **Compose project** | The directory containing `docker-compose.yml`; its `.env` and relative bind-mount paths resolve from here. |
-| **Pull-to-update** | The documented update flow (`docker-compose pull` + `docker-compose up -d`) enabled by the floating `latest` tag. |
+| **Pull-to-update** | The documented update flow (`docker compose pull` + `docker compose up -d`) enabled by the floating `latest` tag. |
 
 **Cross-references:** purpose and non-goals in `docs/purpose.md`; distribution decision
 ADR-0001; secret handling ADR-0002; data persistence ADR-0003. Findings and sign-off
