@@ -26,8 +26,17 @@ Professional invoicing for musicians and freelancers.
 6.  **Open** http://localhost:8000
 
 ## Updates
-To update to the latest version, run:
+The compose file tracks major version **v1** of the app (`ghcr.io/LBya/invoicer:v1`).
+To update to the newest build of v1, run:
 ```bash
 docker compose pull
 docker compose up -d
 ```
+Your data is safe: it lives in the `./invoicer` folder on your machine and is never
+touched by an update.
+
+When a **new major version** is released (v2 and beyond), this pinned file must be
+updated first — re-download `docker-compose.yml` from this repository, then run the
+two commands above. This is deliberate (see `docs/adr/0004-image-tag-pinning.md`):
+updates arrive only after they have been pinned, so a release can never change the
+app underneath you without a matching instruction here.
